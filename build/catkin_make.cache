@@ -1,0 +1,2 @@
+robot_description_pkg:seven_dof_arm_config:seven_dof_arm_gazebo:seven_dof_arm_test
+-DCATKIN_DEVEL_PREFIX=/home/kim/kim_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kim/kim_ws/install -G Unix Makefiles

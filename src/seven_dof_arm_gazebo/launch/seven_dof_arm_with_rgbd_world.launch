@@ -1,0 +1,36 @@
+<launch>
+  <!-- Launch 파일에서 지나칠 (pass) 할 수 있는 인자(arguments)이다. 
+        paused := true 같은 형식으로 사용 가능 -->
+  <arg name = "paused" default = "false"/>
+  <arg name = "use_sim_time" default = "true"/>
+  <arg name = "gui" default = "true"/>
+  <arg name = "headless" default = "false"/>
+  <arg name = "debug" default = "false"/>
+
+  <!-- empty_world.launch에서 로직을 재시작한다 -->
+  <include file = "$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name = "debug" value = "$(arg debug)"/>
+    <arg name = "gui" value = "$(arg gui)"/>
+    <arg name = "paused" value = "$(arg paused)"/>
+    <arg name = "use_sim_time" value = "$(arg use_sim_time)"/>
+    <arg name = "headless" value = "$(arg headless)"/>
+  </include>
+
+  <!-- URDF를 ROS 파라미터 서버로 load 한다 -->
+  <param name = "robot_description" command = "$(find xacro)/xacro
+  '$(find robot_description_pkg)/urdf/seven_dof_arm.xacro'"/>
+  <!-- 책에서는 -->
+  <!--
+    <param name = "robot_description" command = "$(find xacro)/xacro 
+    '$(find mastering_ros_robot_description_pkg)/urdf/
+    seven_dof_arm_with_rgbd.xacro'"/>
+  -->
+
+
+  <!-- URDF 로봇을 생성하는 gazebo_ros에게 서비스 콜을 보내기 위한 파이썬 스크립트
+  구동 -->
+  <node name = "urdf_spawner" pkg = "gazebo_ros" type = "spawn_model"
+  respawn = "false" output = "screen" args = "-urdf -model seven_dof_arm -param
+  robot_description"/>
+
+</launch>

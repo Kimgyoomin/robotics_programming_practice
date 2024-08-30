@@ -1,0 +1,9 @@
+<!-- 궤적 컨트롤러를 실행할 수 있는 런치파일 -->
+<launch>
+  <!-- 인수로 사용되는 파라미터 서버에 moveit_controller_manager 로드
+  인수가 전달되지 않으면 moveit_simple_controller_manager가 설정. -->
+  <arg name = "moveit_controller_manager" default = "moveit_simple_controller_manager/MoveItSimpleControllerManager"/>
+  <param name = "moveit_controller_manager" value = "$(arg moveit_controller_manager)"/>
+  <!-- ROS controllers를 파라미터 서버에 로드 -->
+  <rosparam file = "$(find seven_dof_arm_config)/config/ros_controllers.yaml"/>
+</launch>

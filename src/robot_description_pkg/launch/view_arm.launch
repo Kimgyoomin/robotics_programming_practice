@@ -1,0 +1,14 @@
+<?xml version = "1.0"?>
+<launch>
+  <arg name = "model"/>
+  <!-- xacro Parsing, robot_description 파라미터 load -->
+  <param name = "robot_description" command = "$(find xacro)/xacro $(find robot_description_pkg)/urdf/seven_dof_arm.xacro"/>
+  <node name = "robot_state_publisher" pkg = "robot_state_publisher" type = "robot_state_publisher"/>
+  <node name = "joint_state_publisher_gui"
+  pkg = "joint_state_publisher_gui"
+  type = "joint_state_publisher_gui"/>
+  <!-- rviz visualization -->
+  <node name = "rviz" pkg = "rviz" type = "rviz" args = "-d $(find robot_description_pkg)/urdf.rviz"
+  required = "true"/>
+
+</launch>
